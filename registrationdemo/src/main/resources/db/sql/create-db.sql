@@ -15,7 +15,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE employees (
-  employee_id INT PRIMARY KEY,
+  employee_id INT PRIMARY KEY AUTO_INCREMENT,
   email VARCHAR(50) UNIQUE,
   first_name VARCHAR(50),
   last_name VARCHAR(50),

@@ -32,15 +32,20 @@ public class CreateCompanyController {
 	@PostMapping("/createCompany")
 	public String create(@ModelAttribute("company") Company company, Model model) {
 		int rst = 0;
-		System.out.println("CREATE COMPANY");
-		
-		System.out.println("Hello?? " + company.getCode());
 		
 		rst = companyDao.setUpCompany(company);
 		
 		//if rst > 0 => insert data to users_companies
+		model.addAttribute("companies",companyDao.findAll());
 		
-		return "new-company";
+		return "companies/list";
+	}
+	
+	@GetMapping("/companies")
+	public String showAllCompanies(Model model) {
+		model.addAttribute("companies",companyDao.findAll());
+		
+		return "companies/list";
 	}
 	
 

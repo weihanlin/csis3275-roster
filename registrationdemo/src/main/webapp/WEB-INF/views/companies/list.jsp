@@ -14,8 +14,24 @@
 </head>
 <body>
 
-
-Got a new company!!
-
+	<div class="container">
+		<h1>All Company</h1>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Code</th>
+					<th>Name</th>
+					<th>Address</th>
+				</tr>
+			</thead>
+			<c:forEach var="company" items="${companies}">
+				<tr>
+					<td>${company.code}</td>
+					<td>${company.name}</td>
+					<td>${company.address}</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
 </body>
 </html>

@@ -14,37 +14,37 @@
 </head>
 <body>
 
+<div class="container">
+<h1>Add Company</h1>
+	<form:form class="form-horizontal" action="createCompany" modelAttribute="company">
 
-
-	<form:form action="createCompany" modelAttribute="company">
-
-		<div>
-			<label for="code">Code</label>
-			<div>
-				<form:input path="code" />
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="code">Code</label>
+			<div class="col-sm-3">
+				<form:input class="form-control" path="code" />
 			</div>
 		</div>
-		<div>
-			<label for="name">Name</label>
-			<div>
-				<form:input path="name" />
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="name">Name</label>
+			<div class="col-sm-3">
+				<form:input class="form-control" path="name" />
 			</div>
 		</div>
-		<div>
-			<label for="address">Address</label>
-			<div>
-				<form:input path="address" />
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="address">Address</label>
+			<div class="col-sm-3">
+				<form:input class="form-control" path="address" />
 			</div>
 		</div>
 
-		<div>
-
-			<div>
-				<input type="submit" value="Submit" />
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-3">
+				<button class="btn btn-primary" type="submit">Submit</button> 
 			</div>
 		</div>
 
 	</form:form>
+</div>
 
 </body>
 </html>

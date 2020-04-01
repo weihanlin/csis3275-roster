@@ -3,6 +3,7 @@ package com.sw.roster.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,14 @@ public class CompanyDaoImpl implements CompanyDao{
 
 
 
+	public List<Company> findAll() {
+		// TODO Auto-generated method stub
+		String sql = "SELECT * FROM companies";
+		List<Company> result = namedParameterJdbcTemplate.query(sql, new CompanyMapper());
+		
+		return result;
+	} 
+
 
 	private static final class CompanyMapper implements RowMapper<Company>{
 
@@ -74,7 +83,12 @@ public class CompanyDaoImpl implements CompanyDao{
 			return company;
 		}
 		
-	} 
+	}
+
+
+
+
+	
 	
 
 }

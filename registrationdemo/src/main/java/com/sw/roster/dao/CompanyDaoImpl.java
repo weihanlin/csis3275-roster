@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -56,6 +57,8 @@ public class CompanyDaoImpl implements CompanyDao{
 	@Override
 	public void deleteByCode(String code) {
 		// TODO Auto-generated method stub
+		String sql = "DELETE FROM companies WHERE code = :code";
+		namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("code",code));
 		
 	}
 

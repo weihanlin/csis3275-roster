@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sw.roster.dao.CompanyDao;
 import com.sw.roster.model.Company;
@@ -47,6 +49,16 @@ public class CreateCompanyController {
 		
 		return "companies/list";
 	}
+	
+	@PostMapping("/companies/{code}/delete")
+	public String deleteCompany(@PathVariable("code") String code, final RedirectAttributes redirectAtt) {
+		
+		companyDao.deleteByCode(code);
+		
+		redirectAtt.addFlashAttribute("msg","success");
+		return "redirect:/companies";
+	}
+	
 	
 
 }

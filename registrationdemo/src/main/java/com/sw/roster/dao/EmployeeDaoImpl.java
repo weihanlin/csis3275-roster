@@ -3,12 +3,15 @@ package com.sw.roster.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sw.roster.model.Employee;
 
@@ -39,6 +42,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 
 	@Override
+	@Transactional
 	public int addEmployee(Employee employee) {
 		// TODO Auto-generated method stub
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -53,6 +57,24 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
 		String sql = "INSERT INTO employees (email, first_name, last_name, login_id, password, availiability) "
 				+ "VALUES(:email, :first_name, :last_name, :login_id, :password, 0)";
+
+
+		return namedParameterJdbcTemplate.update(sql, params);
+
+	}
+	
+	@Override
+	@Transactional
+	public int addEmployee(Employee employee, String code) {
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+
+		params.put("code",code);
+		params.put("employee_id", employee.getId());
+		
+
+		String sql = "INSERT INTO companies_employees (code, employee_id) "
+				+ "VALUES(:code, :employee_id)";
 
 
 		return namedParameterJdbcTemplate.update(sql, params);
@@ -77,11 +99,38 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			employee.setFirst_name(rs.getString("first_name"));
 			employee.setLast_name(rs.getString("last_name"));
 			employee.setLogin_id(rs.getString("login_id"));
-			employee.setAvailiability(rs.getInt("availiablity"));
+			employee.setAvailiability(rs.getInt("availiability"));
 			
 			return employee;
 		}
 		
+	}
+
+
+	@Override
+	public List<Employee> findByCode(String code) {
+
+		String sql = "SELECT * FROM employees WHERE employee_id IN "
+				+ "(SELECT employee_id FROM companies_employees WHERE code = :code )";
+		List<Employee> result = namedParameterJdbcTemplate.query(sql, new MapSqlParameterSource("code",code), new EmployeeMapper());
+		return result;
+	}
+
+	@Override
+	public int getEmployeeID(Employee employee) {
+		// TODO Auto-generated method stub
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+        params.put("email", employee.getEmail());
+        
+		String sql = "SELECT employee_id FROM employees WHERE email=:email";
+		
+        int result = namedParameterJdbcTemplate.queryForObject(sql, params, Integer.class);
+        
+		
+		return result;
 	} 
+	
+	
 
 }

@@ -43,10 +43,10 @@
 					<td>${company.name}</td>
 					<td>${company.address}</td>
 					<td>
-						<spring:url value="/companies/${company.code}" var="manageUrl" /> 
+						<spring:url value="/companies/${company.code}/manage" var="manageUrl" /> 
 						<spring:url value="/companies/${company.code}/delete" var="deleteUrl" />
 						<button class="btn btn-info"
-							onclick="location.href='${manageUrl}'">Manage</button>
+							onclick="post('${manageUrl}')">Manage</button>
 						<button class="btn btn-danger"
 							onclick="this.disabled=true;post('${deleteUrl}')">Delete</button>
 					</td>

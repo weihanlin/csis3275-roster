@@ -15,48 +15,58 @@
 <body>
 
 
-
-	<form:form action="addEmployee" modelAttribute="employee">
-
-		<div>
-			<label >First Name:</label>
+	<div class="container">
+		<form:form action="addEmployee" modelAttribute="employee">
 			<div>
-				<form:input path="first_name" />
+				<label>First Name:</label>
+				<div>
+					<form:input path="first_name" />
+				</div>
 			</div>
-		</div>
-		<div>
-			<label >Last Name:</label>
 			<div>
-				<form:input path="last_name" />
+				<label>Last Name:</label>
+				<div>
+					<form:input path="last_name" />
+				</div>
 			</div>
-		</div>
-		<div>
-			<label >Email:</label>
 			<div>
-				<form:input path="email" />
+				<label>Email:</label>
+				<div>
+					<form:input path="email" />
+				</div>
 			</div>
-		</div>
-		<div>
-			<label >Account:</label>
 			<div>
-				<form:input path="login_id" />
+				<label>Account:</label>
+				<div>
+					<form:input path="login_id" />
+				</div>
 			</div>
-		</div>
-		<div>
-			<label >Password:</label>
 			<div>
-				<form:input path="password" />
+				<label>Password:</label>
+				<div>
+					<form:input path="password" />
+				</div>
 			</div>
-		</div>
+<%-- 			<div>
+				<label>position:</label>
+				<div>
+					<form:input path="job_id" />
+				</div>
+			</div> --%>
+			<div>
+				<label>availiability:</label>
+				<div>
+					<form:input path="availiability" />
+				</div>
+			</div>
 
-		<div>
-
 			<div>
-				<input type="submit" value="Submit" />
+				<div>
+					<input type="submit" value="Submit" />
+				</div>
 			</div>
-		</div>
 
-	</form:form>
-
+		</form:form>
+	</div>
 </body>
 </html>

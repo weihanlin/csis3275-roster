@@ -137,5 +137,34 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return result;
 	}
 
+	@Override
+	public void update(Employee employee) {
+		// TODO Auto-generated method stub
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("id", employee.getId());
+        params.put("email", employee.getEmail());
+        params.put("first_name", employee.getFirst_name());
+		params.put("last_name",employee.getLast_name());
+		params.put("login_id",employee.getLogin_id());
+		params.put("password",employee.getPassword());
+		params.put("availiability",employee.getAvailiability());
+		
+        
+		String sql = "UPDATE employees SET email=:email,first_name=:first_name,"
+				+ "last_name=:last_name,login_id=:login_id,password=:password,availiability=:availiability WHERE employee_id=:id";
+		namedParameterJdbcTemplate.update(sql,params);
+	}
+
+	@Override
+	public String findCode(Employee employee) {
+		// TODO Auto-generated method stub
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("employee_id", employee.getId());
+		System.out.println(employee.getId());
+		String sql = "SELECT code FROM companies_employees WHERE employee_id=:employee_id";
+		String result = namedParameterJdbcTemplate.queryForObject(sql, params, String.class);
+		return result;
+	}
+
 
 }

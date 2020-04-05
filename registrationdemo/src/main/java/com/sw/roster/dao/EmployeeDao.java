@@ -17,4 +17,8 @@ public interface EmployeeDao {
 	
 	int getEmployeeID(Employee employee);
 	
+	void update(Employee employee);
+	
+	String findCode(Employee employee);
+	
 }

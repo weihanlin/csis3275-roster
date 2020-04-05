@@ -21,8 +21,31 @@ public class AddEmployeeController {
 	@ModelAttribute("employee")
 	public Employee employee() { return new Employee(); }
 	
-	@GetMapping("/addEmployee")
-	public String showForm() { return "addEmployee"; }
+	@PostMapping("/employees/{id}/addEmployee")
+	public String updateEmployee(@PathVariable("id") int id, @ModelAttribute("employee") Employee employee, Model model) { 
+		
+		System.out.println("update employee");
+		System.out.println("last_name:" + employee.getLast_name());
+		
+		Employee o_employee = employeeDao.findById(id);
+		
+		o_employee.setFirst_name(employee.getFirst_name());
+		o_employee.setLast_name(employee.getLast_name());
+		o_employee.setEmail(employee.getEmail());
+		o_employee.setLogin_id(employee.getLogin_id());
+		if(!employee.getPassword().equals(""))
+			o_employee.setPassword(employee.getPassword());
+		o_employee.setAvailiability(employee.getAvailiability());
+		
+		employeeDao.update(o_employee);
+		
+		String code = employeeDao.findCode(o_employee);
+		
+		model.addAttribute("code",code);
+		model.addAttribute("employees", employeeDao.findByCode(code));
+
+		return "employeeList"; 
+	}
 	
 	@PostMapping("/companies/{code}/addEmployee")
 	public String create(@ModelAttribute("employee") Employee employee, @PathVariable("code") String code, Model model) {
@@ -53,7 +76,6 @@ public class AddEmployeeController {
 	public String addEmployee(@PathVariable("code") String code, Model model) {
 		
 		model.addAttribute("code",code);
-		model.addAttribute("employees", employeeDao.findByCode(code));
 		
 		return "addEmployee";
 	}
@@ -69,5 +91,13 @@ public class AddEmployeeController {
 		return "redirect:/companies/" + code + "/manage";
 	}
 	
-	
+	@GetMapping("/employees/{id}/query")
+	public String queryEmployee(@PathVariable("id") int id, Model model) {
+		
+		Employee employee = employeeDao.findById(id);
+		
+		model.addAttribute("employee", employee);
+		
+		return "addEmployee";
+	}
 }

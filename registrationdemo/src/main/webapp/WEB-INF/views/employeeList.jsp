@@ -38,7 +38,7 @@
 						<spring:url value="/employees/${employee.id}/query" var="queryUrl" /> 
 						<spring:url value="/employees/${employee.id}/delete/${code}" var="deleteUrl" />
 						<button class="btn btn-info"
-							onclick="post('${queryUrl}')">Manage</button>
+							onclick="location.href='${queryUrl}'">Manage</button>
 						<button class="btn btn-danger"
 							onclick="this.disabled=true;post('${deleteUrl}')">Delete</button>
 					</td>

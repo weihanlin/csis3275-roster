@@ -82,9 +82,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	}
 
 	@Override
-	public void deleteById(int id) {
-		// TODO Auto-generated method stub
+	public void deleteById(int employee_id) {
+		String sql = "DELETE FROM companies_employees WHERE employee_id = :employee_id";
+		int rst = namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("employee_id",employee_id));
 
+		sql = "DELETE FROM employees WHERE employee_id = :employee_id";
+		
+		if(rst > 0)
+			rst = namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("employee_id",employee_id));
+		System.out.println("rst:" + rst);
 	}
 	
 	
@@ -129,8 +135,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         
 		
 		return result;
-	} 
-	
-	
+	}
+
 
 }

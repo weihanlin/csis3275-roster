@@ -36,7 +36,7 @@
 					<td>${employee.email}</td>
 					<td>
 						<spring:url value="/employees/${employee.id}/query" var="queryUrl" /> 
-						<spring:url value="/employees/${employee.id}/delete" var="deleteUrl" />
+						<spring:url value="/employees/${employee.id}/delete/${code}" var="deleteUrl" />
 						<button class="btn btn-info"
 							onclick="post('${queryUrl}')">Manage</button>
 						<button class="btn btn-danger"

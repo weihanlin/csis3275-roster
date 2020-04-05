@@ -40,7 +40,7 @@ public class AddEmployeeController {
 		return "employeeList";
 	}
 	
-	@PostMapping("/companies/{code}/manage")
+	@GetMapping("/companies/{code}/manage")
 	public String manageEmployee(@PathVariable("code") String code, Model model) {
 		
 		model.addAttribute("code",code);
@@ -59,7 +59,15 @@ public class AddEmployeeController {
 	}
 	
 	
-	
+	@PostMapping("/employees/{id}/delete/{code}")
+	public String deleteEmployee(@PathVariable("id") int id,@PathVariable("code") String code, final RedirectAttributes redirectAtt) {
+		
+		employeeDao.deleteById(id);
+		
+		redirectAtt.addFlashAttribute("msg","success");
+		
+		return "redirect:/companies/" + code + "/manage";
+	}
 	
 	
 }

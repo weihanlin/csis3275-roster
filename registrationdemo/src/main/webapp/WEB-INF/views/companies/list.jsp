@@ -46,7 +46,7 @@
 						<spring:url value="/companies/${company.code}/manage" var="manageUrl" /> 
 						<spring:url value="/companies/${company.code}/delete" var="deleteUrl" />
 						<button class="btn btn-info"
-							onclick="post('${manageUrl}')">Manage</button>
+							onclick="location.href='${manageUrl}'">Manage</button>
 						<button class="btn btn-danger"
 							onclick="this.disabled=true;post('${deleteUrl}')">Delete</button>
 					</td>

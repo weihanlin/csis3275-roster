@@ -1,11 +1,8 @@
 DROP TABLE companies_employees IF EXISTS;
 DROP TABLE users_companies IF EXISTS;
-DROP TABLE jobs IF EXISTS;
 DROP TABLE users IF EXISTS;
 DROP TABLE employees IF EXISTS;
 DROP TABLE companies IF EXISTS;
-
-
 
 
 CREATE TABLE users (
@@ -21,20 +18,14 @@ CREATE TABLE employees (
   last_name VARCHAR(50),
   login_id VARCHAR(50) UNIQUE,
   password VARCHAR(20),
-  availability VARCHAR(500)
+  availability VARCHAR(500),
+  position VARCHAR(30)
 );
 
 CREATE TABLE companies (
   code VARCHAR(50) PRIMARY KEY,
   company_name VARCHAR(200),
   address VARCHAR(200)
-);
-
-CREATE TABLE jobs (
-  job_id INTEGER PRIMARY KEY,
-  code VARCHAR(50),
-  title VARCHAR(30),
-  FOREIGN KEY (code) REFERENCES companies(code)
 );
 
 CREATE TABLE users_companies (
@@ -47,8 +38,6 @@ CREATE TABLE users_companies (
 CREATE TABLE companies_employees (
   code VARCHAR(50),
   employee_id INT,
-  job_id INT,
   FOREIGN KEY (code) REFERENCES companies(code),
-  FOREIGN KEY (employee_id) REFERENCES employees(employee_id),
-  FOREIGN KEY (job_id) REFERENCES jobs(job_id)
+  FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
 );

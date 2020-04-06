@@ -55,11 +55,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		params.put("login_id",employee.getLogin_id());
 		params.put("password",employee.getPassword());
 		params.put("availability",convertListToDelimitedString(employee.getAvailability()));
-		
-		
+		params.put("position",employee.getPosition());
 
-		String sql = "INSERT INTO employees (email, first_name, last_name, login_id, password, availability) "
-				+ "VALUES(:email, :first_name, :last_name, :login_id, :password, :availability)";
+
+		String sql = "INSERT INTO employees (email, first_name, last_name, login_id, password, availability, position) "
+				+ "VALUES(:email, :first_name, :last_name, :login_id, :password, :availability, :position)";
 
 
 		return namedParameterJdbcTemplate.update(sql, params);
@@ -109,6 +109,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			employee.setLast_name(rs.getString("last_name"));
 			employee.setLogin_id(rs.getString("login_id"));
 			employee.setPassword(rs.getString("password"));
+			employee.setPosition(rs.getString("position"));
 			employee.setAvailability(convertDelimitedStringToList(rs.getString("availability")));
 			
 			return employee;
@@ -152,10 +153,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		params.put("login_id",employee.getLogin_id());
 		params.put("password",employee.getPassword());
 		params.put("availability",convertListToDelimitedString(employee.getAvailability()));
-		
+		params.put("position",employee.getPosition());
         
 		String sql = "UPDATE employees SET email=:email,first_name=:first_name,"
-				+ "last_name=:last_name,login_id=:login_id,password=:password,availability=:availability WHERE employee_id=:id";
+				+ "last_name=:last_name,login_id=:login_id,password=:password,availability=:availability,position=:position WHERE employee_id=:id";
 		namedParameterJdbcTemplate.update(sql,params);
 	}
 

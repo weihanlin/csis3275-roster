@@ -1,7 +1,9 @@
 package com.sw.roster.controller;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +38,7 @@ public class AddEmployeeController {
 		if(!employee.getPassword().equals(""))
 			o_employee.setPassword(employee.getPassword());
 		o_employee.setAvailability(employee.getAvailability());
+		o_employee.setPosition(employee.getPosition());
 		
 		employeeDao.update(o_employee);
 		
@@ -114,6 +117,13 @@ public class AddEmployeeController {
 		availablekList.add("Sat");
 		availablekList.add("Sun");
 		model.addAttribute("availableList", availablekList);
+		
+		Map<String, String> position = new LinkedHashMap<String, String>();
+		position.put("HR", "Human Resource");
+		position.put("PM", "Project Management");
+		position.put("RD", "Research Development");
+		position.put("QA", "Quality Assurance");
+		model.addAttribute("positionList", position);
 		
 	}
 	

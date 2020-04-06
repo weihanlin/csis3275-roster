@@ -2,6 +2,8 @@ package com.sw.roster.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +14,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.sw.roster.model.Employee;
 
@@ -51,12 +54,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		params.put("last_name",employee.getLast_name());
 		params.put("login_id",employee.getLogin_id());
 		params.put("password",employee.getPassword());
-		params.put("availiability",employee.getAvailiability());
+		params.put("availability",convertListToDelimitedString(employee.getAvailability()));
 		
 		
 
-		String sql = "INSERT INTO employees (email, first_name, last_name, login_id, password, availiability) "
-				+ "VALUES(:email, :first_name, :last_name, :login_id, :password, 0)";
+		String sql = "INSERT INTO employees (email, first_name, last_name, login_id, password, availability) "
+				+ "VALUES(:email, :first_name, :last_name, :login_id, :password, :availability)";
 
 
 		return namedParameterJdbcTemplate.update(sql, params);
@@ -105,7 +108,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			employee.setFirst_name(rs.getString("first_name"));
 			employee.setLast_name(rs.getString("last_name"));
 			employee.setLogin_id(rs.getString("login_id"));
-			employee.setAvailiability(rs.getInt("availiability"));
+			employee.setPassword(rs.getString("password"));
+			employee.setAvailability(convertDelimitedStringToList(rs.getString("availability")));
 			
 			return employee;
 		}
@@ -147,11 +151,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		params.put("last_name",employee.getLast_name());
 		params.put("login_id",employee.getLogin_id());
 		params.put("password",employee.getPassword());
-		params.put("availiability",employee.getAvailiability());
+		params.put("availability",convertListToDelimitedString(employee.getAvailability()));
 		
         
 		String sql = "UPDATE employees SET email=:email,first_name=:first_name,"
-				+ "last_name=:last_name,login_id=:login_id,password=:password,availiability=:availiability WHERE employee_id=:id";
+				+ "last_name=:last_name,login_id=:login_id,password=:password,availability=:availability WHERE employee_id=:id";
 		namedParameterJdbcTemplate.update(sql,params);
 	}
 
@@ -166,5 +170,23 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		return result;
 	}
 
+	private static List<String> convertDelimitedStringToList(String delimitedString) {
 
+		List<String> result = new ArrayList<String>();
+
+		if (!StringUtils.isEmpty(delimitedString)) {
+			result = Arrays.asList(StringUtils.delimitedListToStringArray(delimitedString, ","));
+		}
+		return result;
+
+	}
+	private String convertListToDelimitedString(List<String> list) {
+
+		String result = "";
+		if (list != null) {
+			result = StringUtils.arrayToCommaDelimitedString(list.toArray());
+		}
+		return result;
+
+	}
 }

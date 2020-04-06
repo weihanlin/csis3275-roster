@@ -21,7 +21,7 @@ CREATE TABLE employees (
   last_name VARCHAR(50),
   login_id VARCHAR(50) UNIQUE,
   password VARCHAR(20),
-  availiability INT
+  availability VARCHAR(500)
 );
 
 CREATE TABLE companies (

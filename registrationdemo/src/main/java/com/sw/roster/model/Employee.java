@@ -1,5 +1,7 @@
 package com.sw.roster.model;
 
+import java.util.List;
+
 public class Employee {
 	private int id;
 	private String first_name;
@@ -7,7 +9,7 @@ public class Employee {
 	private String email;
 	private String login_id;
 	private String password;
-	private int availiability;
+	List<String> availability;
 	
 	public int getId() {
 		return id;
@@ -45,13 +47,13 @@ public class Employee {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getAvailiability() {
-		return availiability;
+	public List<String> getAvailability() {
+		return availability;
 	}
-	public void setAvailiability(int availiability) {
-		this.availiability = availiability;
+	public void setAvailability(List<String> availability) {
+		this.availability = availability;
 	}
-	
+
 	
 	
 

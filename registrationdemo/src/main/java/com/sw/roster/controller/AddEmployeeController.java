@@ -1,5 +1,8 @@
 package com.sw.roster.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +27,6 @@ public class AddEmployeeController {
 	@PostMapping("/employees/{id}/addEmployee")
 	public String updateEmployee(@PathVariable("id") int id, @ModelAttribute("employee") Employee employee, Model model) { 
 		
-		System.out.println("update employee");
-		System.out.println("last_name:" + employee.getLast_name());
-		
 		Employee o_employee = employeeDao.findById(id);
 		
 		o_employee.setFirst_name(employee.getFirst_name());
@@ -35,7 +35,7 @@ public class AddEmployeeController {
 		o_employee.setLogin_id(employee.getLogin_id());
 		if(!employee.getPassword().equals(""))
 			o_employee.setPassword(employee.getPassword());
-		o_employee.setAvailiability(employee.getAvailiability());
+		o_employee.setAvailability(employee.getAvailability());
 		
 		employeeDao.update(o_employee);
 		
@@ -59,7 +59,7 @@ public class AddEmployeeController {
 		
 		model.addAttribute("code",code);
 		model.addAttribute("employees", employeeDao.findByCode(code));
-		
+			
 		return "employeeList";
 	}
 	
@@ -76,6 +76,7 @@ public class AddEmployeeController {
 	public String addEmployee(@PathVariable("code") String code, Model model) {
 		
 		model.addAttribute("code",code);
+		populateDefaultModel(model);
 		
 		return "addEmployee";
 	}
@@ -97,7 +98,23 @@ public class AddEmployeeController {
 		Employee employee = employeeDao.findById(id);
 		
 		model.addAttribute("employee", employee);
+		populateDefaultModel(model);
 		
 		return "addEmployee";
 	}
+	
+	private void populateDefaultModel(Model model) {
+
+		List<String> availablekList = new ArrayList<String>();
+		availablekList.add("Mon");
+		availablekList.add("Tue");
+		availablekList.add("Wed");
+		availablekList.add("Thr");
+		availablekList.add("Fri");
+		availablekList.add("Sat");
+		availablekList.add("Sun");
+		model.addAttribute("availableList", availablekList);
+		
+	}
+	
 }

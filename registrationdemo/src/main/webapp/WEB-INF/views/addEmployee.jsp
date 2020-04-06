@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!DOCTYPE html>
 <html>
 <head><%@ page isELIgnored="false"%>
@@ -53,12 +54,24 @@
 					<form:input path="job_id" />
 				</div>
 			</div> --%>
-			<div>
+<%-- 			<div>
 				<label>availiability:</label>
 				<div>
 					<form:input path="availiability" />
 				</div>
+			</div> --%>
+			
+		<spring:bind path="availability">
+		  <div class="form-group ${status.error ? 'has-error' : ''}">
+			<label class="col-sm-2 control-label">Availability:</label>
+			<div class="col-sm-10">
+				<form:checkboxes path="availability" items="${availableList}" 
+                                 element="label class='checkbox-inline'" />
+				<br />
+				<form:errors path="availability" class="control-label" />
 			</div>
+		  </div>
+		</spring:bind>
 
 			<div>
 				<div>

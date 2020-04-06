@@ -2,15 +2,15 @@ package com.sw.roster.model;
 
 public class LoginInfo {
 
-	private String email;
+	private int userid;
 	private String password;
 
-	public String getEmail() {
-		return email;
+	public int getUserid() {
+		return userid;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUserid(int userid) {
+		this.userid = userid;
 	}
 
 	public String getPassword() {

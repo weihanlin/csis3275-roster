@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Student Login</title>
+<title>User Login</title>
 <link href="<c:url value="/resources/css/bootstrap.min.css" />"
 	rel="stylesheet">
 <script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
@@ -17,33 +17,39 @@
 <body>
 	<div class="container">
 		<div class="col-md-offset-2 col-md-7">
-			<h2 class="text-center">Student Login: ${message}</h2>
+			<h2 class="text-center">${message}</h2>
 			<div class="panel panel-info">
 				<div class="panel-body">
-					<form:form action="login" cssClass="form-horizontal"
-						method="post" modelAttribute="loginInfo">
+					<form:form action="login" class="form-horizontal" method="post"
+						modelAttribute="loginInfo">
 
-						<div class="form-group">
-							<label for="email" class="col-md-3 control-label">email</label>
+						<div class="form-group row">
+							<label for="userid" class="col-md-3 control-label">User
+								ID</label>
 							<div class="col-md-9">
-								<form:input path="email" cssClass="form-control" />
+								<form:input path="userid" class="form-control" />
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group row">
 							<label for="password" class="col-md-3 control-label">Password</label>
 							<div class="col-md-9">
-								<form:password path="password" cssClass="form-control" />
+								<form:password path="password" class="form-control" />
 							</div>
 						</div>
 
-						<div class="form-group">
+						<div class="form-group row">
 							<!-- Button -->
 							<div class="col-md-offset-3 col-md-9">
-								<form:button cssClass="btn btn-primary">Submit</form:button>
+								<form:button class="btn btn-primary">Submit</form:button>
 							</div>
+
 						</div>
 
 					</form:form>
+					<div>
+						<button class="btn btn-info"
+							onclick="location.href='/showSignUpForm'">Sign Up</button>
+					</div>
 				</div>
 			</div>
 		</div>

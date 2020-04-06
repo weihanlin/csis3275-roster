@@ -30,8 +30,11 @@
 
 		<h1>All Company</h1>
 		<spring:url value="/createCompany" var="createUrl" />
+		<spring:url value="/logout" var="logout" />
 		<button class="btn btn-primary"
 			onclick="this.disabled=true;location.href='${createUrl}'">Add New</button>
+		<button class="btn btn-secondary"
+			onclick="this.disabled=true;location.href='${logout}'">Logout</button>
 		<table class="table table-striped">
 			<thead>
 				<tr>

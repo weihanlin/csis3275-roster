@@ -8,7 +8,8 @@ DROP TABLE companies IF EXISTS;
 CREATE TABLE users (
   users_id    INT PRIMARY KEY,
   user_name  VARCHAR(30),
-  email VARCHAR(50)
+  email VARCHAR(50),
+  password VARCHAR(20)
 );
 
 CREATE TABLE employees (
@@ -32,12 +33,12 @@ CREATE TABLE users_companies (
   users_id INT,
   code VARCHAR(50),
   foreign key (users_id) references users(users_id),
-  foreign key (code) references companies(code)
+  foreign key (code) references companies(code) ON DELETE CASCADE
 );
 
 CREATE TABLE companies_employees (
   code VARCHAR(50),
   employee_id INT,
-  FOREIGN KEY (code) REFERENCES companies(code),
+  FOREIGN KEY (code) REFERENCES companies(code) ON DELETE CASCADE,
   FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
 );

@@ -10,8 +10,12 @@ public interface CompanyDao {
 	
 	int setUpCompany(Company company);
 	
+	int setUpCompany(Company company, int id);
+	
 	void deleteByCode(String code);
 	
 	List<Company> findAll();
+	
+	List<Company> findCompanies(int id);
 
 }

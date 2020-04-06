@@ -7,8 +7,10 @@ import com.sw.roster.model.User;
  
 public interface UserDao {
 
-	User findByName(String name);
+	User findByID(int id);
 	 
 	List<User> findAll();
+	
+	int addUser(User user);
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sw.roster.dao.CompanyDao;
 import com.sw.roster.model.Company;
+import com.sw.roster.model.User;
 
 @Controller
 public class CreateCompanyController {
@@ -32,22 +33,34 @@ public class CreateCompanyController {
 	}
 	
 	@PostMapping("/createCompany")
-	public String create(@ModelAttribute("company") Company company, Model model) {
-		int rst = 0;
+	public String create(HttpSession session, @ModelAttribute("company") Company company, Model model) {
+	    User user = (User) session.getAttribute("user");
+	    int rst = 0;
+	    if(user != null) {
+	    	rst = companyDao.setUpCompany(company);
+	    	if(rst > 0)
+	    		companyDao.setUpCompany(company,user.getUserID());
+	    	
+	    	model.addAttribute("companies",companyDao.findCompanies(user.getUserID()));
+	    	
+	    	return "companies/list";
+	    }
 		
-		rst = companyDao.setUpCompany(company);
-		
-		//if rst > 0 => insert data to users_companies
-		model.addAttribute("companies",companyDao.findAll());
-		
-		return "companies/list";
+		return "redirect:/login";
 	}
 	
 	@GetMapping("/companies")
-	public String showAllCompanies(Model model) {
-		model.addAttribute("companies",companyDao.findAll());
+	public String showAllCompanies(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("user");
+
+	    if(user != null) {	    	
+	    	model.addAttribute("companies",companyDao.findCompanies(user.getUserID()));
+	    	
+	    	return "companies/list";
+	    }
 		
-		return "companies/list";
+		return "redirect:/login";
+		
 	}
 	
 	@PostMapping("/companies/{code}/delete")

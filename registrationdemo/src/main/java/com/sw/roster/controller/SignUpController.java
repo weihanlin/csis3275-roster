@@ -1,7 +1,5 @@
 package com.sw.roster.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.sw.roster.dao.UserDao;
+import com.sw.roster.model.LoginInfo;
 import com.sw.roster.model.User;
 
 @Controller
@@ -27,6 +26,11 @@ public class SignUpController {
 	@ModelAttribute("user")
 	public User setSignUpForm() {
 		return new User();
+	}
+	
+	@ModelAttribute("loginInfo")
+	public LoginInfo loginForm() {
+		return new LoginInfo();
 	}
 
 	/**
@@ -49,24 +53,10 @@ public class SignUpController {
 	@PostMapping("/saveSignUpForm")
 	public String saveUser(@ModelAttribute("user") User user, Model model) {
 
-		// Implement business logic to save user details into a database
-		// .....
-
-		System.out.println("FirstName : " + user.getFirstName());
-		System.out.println("LastName : " + user.getLastName());
-		System.out.println("Username : " + user.getUserName());
-		System.out.println("Password : " + user.getPassword());
-		System.out.println("Email : " + user.getEmail());
-		
-		List<User> users = userDao.findAll();
-
-		System.out.println(users);
-
-		model.addAttribute("user", users);
+		userDao.addUser(user);
 				
 		model.addAttribute("message", "User SignUp successfully.");
-//		model.addAttribute("user", user);
 
-		return "signup-success";
+		return "login";
 	}
 }

@@ -72,6 +72,14 @@ public class CompanyDaoImpl implements CompanyDao{
 		return result;
 	} 
 
+	public List<Company> findCompanies(int id) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT * FROM companies WHERE code IN "
+				+ "(SELECT code FROM users_companies WHERE users_id = " + id + " )" ;
+		List<Company> result = namedParameterJdbcTemplate.query(sql, new CompanyMapper());
+		
+		return result;
+	} 
 
 	private static final class CompanyMapper implements RowMapper<Company>{
 
@@ -86,6 +94,24 @@ public class CompanyDaoImpl implements CompanyDao{
 			return company;
 		}
 		
+	}
+
+	@Override
+	public int setUpCompany(Company company, int id) {
+		// TODO Auto-generated method stub
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+
+		params.put("code",company.getCode());
+		params.put("users_id", id);
+		
+
+		String sql = "INSERT INTO users_companies (code, users_id) "
+				+ "VALUES(:code, :users_id)";
+
+
+		return namedParameterJdbcTemplate.update(sql, params);
+
 	}
 
 

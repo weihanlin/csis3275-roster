@@ -1,26 +1,17 @@
 package com.sw.roster.model;
  
 public class User {
-	private String firstName;
-	private String lastName;
+	private int userID;
 	private String email;
 	private String userName;
 	private String password;
  
-	public String getFirstName() {
-		return firstName;
+	public int getUserID() {
+		return userID;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 
 	public String getEmail() {

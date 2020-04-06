@@ -45,6 +45,8 @@
 				</tr>
 			</c:forEach>
 		</table>
+		<button class="btn btn-secondary" onclick="location.href='/companies'">BACK</button>
 		</div>
+		
 </body>
 </html>
